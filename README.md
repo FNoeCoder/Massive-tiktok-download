@@ -1,4 +1,4 @@
-# TikTok Profile Scraper
+# Massive Ttiktok Download
 
 This project is a tool to **download TikTok videos** or **save video links as a JSON file** from TikTok user profiles. It allows users to choose different quality options (normal, HD, or MP3) when downloading videos. The application runs in the console and uses **Selenium** to interact with the browser and **scrape** videos from TikTok profiles.
 
