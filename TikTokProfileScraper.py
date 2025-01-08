@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from SsstikioScraper import SsstikioScraper
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
 
@@ -22,6 +24,16 @@ class TikTokProfileScraper:
     def get_videos(self):
         profile_url = f"https://www.tiktok.com/@{self.username}"
         self.driver.get(profile_url)
+        # <h2 data-e2e="user-subtitle" class="css-iqyldm-H2ShareSubTitle ekmpd5l7">Yesua 2G</h2>
+        try:
+            WebDriverWait(self.driver, 2).until(
+                EC.presence_of_element_located((By.XPATH, '//h2[@data-e2e="user-subtitle"]'))
+            )
+            self.driver.find_element(By.XPATH, '//h2[@data-e2e="user-subtitle"]')
+        except:
+            print("User not found.")
+            return None
+
         print("Please resolve the TikTok capcha if it appears and scroll down to load all the videos of the user you want to load.")
         input("Press Enter when the required videos are ready.")
 
@@ -29,12 +41,18 @@ class TikTokProfileScraper:
         video_elements = self.driver.find_elements(By.XPATH, '//a[contains(@class, "css-1mdo0pl-AVideoContainer")]')
         video_links = [element.get_attribute("href") for element in video_elements]
 
+        if video_links == None:
+            video_links = []
+
         return video_links
 
     def save_videos_as_json(self):
         video_links = self.get_videos()
-        if len(video_links) == 0 or video_links == None:
-            print("No videos found.")
+        if video_links == None:
+            self.close()
+            return
+        elif len(video_links) == 0:
+            print("No videos found")
             self.close()
             return
         self.close()
