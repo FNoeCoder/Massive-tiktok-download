@@ -41,8 +41,7 @@ while True:
         TikTokProfile = TikTokProfileScraper(username)
         TikTokProfile.save_videos_as_json()
         clearConsole()
-        print(f"\nVideos from {username} have been saved as JSON.")
-        time.sleep(4)
+        time.sleep(2)
 
     elif option == '2':
         jump()
@@ -52,8 +51,7 @@ while True:
         TikTokProfile = TikTokProfileScraper(username)
         TikTokProfile.save_videos_on_PC(valueQuality)
         clearConsole()
-        print(f"Videos from {username} have been downloaded.")
-        time.sleep(4)
+        time.sleep(2)
 
     elif option == '3':
         jump()
@@ -63,7 +61,7 @@ while True:
         TikTokProfile = TikTokProfileScraper(None)
         TikTokProfile.save_videos_on_PC_from_json(json_file, quality)
         clearConsole()
-        time.sleep(4)
+        time.sleep(2)
 
     elif option == '99':
         break
