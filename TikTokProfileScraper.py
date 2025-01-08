@@ -25,7 +25,8 @@ class TikTokProfileScraper:
         print("Please resolve the TikTok capcha if it appears and scroll down to load all the videos of the user you want to load.")
         input("Press Enter when the required videos are ready.")
 
-        video_elements = self.driver.find_elements(By.XPATH, '//a[contains(@class, "css-1g95xhm-AVideoContainer")]')
+        
+        video_elements = self.driver.find_elements(By.XPATH, '//a[contains(@class, "css-1mdo0pl-AVideoContainer")]')
         video_links = [element.get_attribute("href") for element in video_elements]
 
         return video_links
