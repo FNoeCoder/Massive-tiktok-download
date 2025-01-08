@@ -33,8 +33,9 @@ class TikTokProfileScraper:
 
     def save_videos_as_json(self):
         video_links = self.get_videos()
-        if len(video_links) == 0: 
+        if len(video_links) == 0 or video_links == None:
             print("No videos found.")
+            self.close()
             return
         self.close()
         date = time.strftime("%Y-%m-%d", time.localtime())
@@ -56,11 +57,13 @@ class TikTokProfileScraper:
 
     def save_videos_on_PC(self, quality):
         video_links = self.get_videos()
+        if len(video_links) == 0 or video_links == None:
+            print("No videos found.")
+            self.close()
+            return
         if quality == None:
             print("Invalid quality.")
-            return
-        if len(video_links) == 0: 
-            print("No videos found.")
+            self.close()
             return
         self.close()
         Ssstikio = SsstikioScraper(video_links)
@@ -77,22 +80,17 @@ class TikTokProfileScraper:
                 total_videos = data["total_videos"]
         except FileNotFoundError:
             print("File not found.")
-            time.sleep(4)
             return
         except json.JSONDecodeError:
             print("Invalid JSON file.")
-            time.sleep(4)
         if quality == None:
             print("Invalid quality.")
-            time.sleep(4)
             return
         if len(video_links) == 0: 
             print("No videos found.")
-            time.sleep(4)
             return
         if len(successful_downloads) == total_videos:
             print("All videos have already been downloaded.")
-            time.sleep(4)
             return
         if len(successful_downloads) < total_videos and len(successful_downloads) > 0:
             print("Downloading videos that could not be downloaded before.")
