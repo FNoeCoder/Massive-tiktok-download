@@ -18,6 +18,10 @@ class TikTokProfileScraper:
         if username:
             self.driver = webdriver.Chrome(options=chrome_options)
             self.username = username
+            # format the username
+            self.username = self.username.replace(" ", "")
+            self.username = self.username.replace("@", "")
+            
             
 
 
